@@ -9,6 +9,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
+	"net/url"
 )
 
 type Tweet struct {
@@ -136,14 +137,20 @@ func main() {
 
 	// db, err := gorm.Open("mysql", "root@gabula_dev?charset=utf8&parseTime=True&loc=Local")
 	col := db.C("tweet")
-	searchResult, _ := api.GetSearch("kabu", nil)
+	values := url.Values{}
+	values.Set("result_type", "recent")
+	values.Set("count", "30")
+
+	searchResult, _ := api.GetSearch("from:...", values)
+	count := 0
 	for _, tweet := range searchResult.Statuses {
 		col.Insert(tweet)
+		count += 1
 	}
+	fmt.Println("count", count)
 
 	searchResultNext, _ := searchResult.GetNext(api)
 	for _, tweet := range searchResultNext.Statuses {
 		fmt.Println(tweet.Text)
-		col.Insert(tweet)
 	}
 }
