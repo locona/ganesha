@@ -2,3 +2,6 @@ package: github.com/locona/ganesha
 import:
 - package: gopkg.in/yaml.v2
 - package: github.com/ChimeraCoder/anaconda
+- package: github.com/jinzhu/gorm
+- package: github.com/jinzhu/inflection
+- package: gopkg.in/mgo.v2
