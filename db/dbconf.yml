@@ -1,0 +1,11 @@
+test:
+    driver: mymysql
+    open: gabula_dev/root/
+
+development:
+    driver: mymysql
+    open: gabula_dev/root/
+
+production:
+    driver: mymysql
+    open: gabula_dev/root/
