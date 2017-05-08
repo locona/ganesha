@@ -1,4 +1,8 @@
 vendor
-config/*
-!config/*.sample.*
+**/config/*
+!**/config/*.sample.*
 glide.lock
+.env.*
+.envrc
+!.env.sample
+!.envrc.sample
