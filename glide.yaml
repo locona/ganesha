@@ -5,3 +5,9 @@ import:
 - package: github.com/jinzhu/gorm
 - package: github.com/jinzhu/inflection
 - package: gopkg.in/mgo.v2
+- package: github.com/joho/godotenv
+- package: github.com/kelseyhightower/envconfig
+- package: github.com/asaskevich/govalidator
+- package: github.com/olivere/elastic
+- package: github.com/PuerkitoBio/goquery
+- package: github.com/microcosm-cc/bluemonday
