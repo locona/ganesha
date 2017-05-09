@@ -1,5 +1,4 @@
 vendor
-**/config/*
 !**/config/*.sample.*
 glide.lock
 .env.*
