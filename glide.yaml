@@ -12,4 +12,4 @@ import:
 - package: github.com/PuerkitoBio/goquery
 - package: github.com/microcosm-cc/bluemonday
 - package: github.com/garyburd/redigo/redis
-
+- package: github.com/mattn/go-mastodon
