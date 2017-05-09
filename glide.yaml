@@ -13,3 +13,4 @@ import:
 - package: github.com/microcosm-cc/bluemonday
 - package: github.com/garyburd/redigo/redis
 - package: github.com/mattn/go-mastodon
+- package: github.com/spf13/viper
