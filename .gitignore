@@ -6,3 +6,4 @@ glide.lock
 .envrc
 !.env.sample
 !.envrc.sample
+dump.rdb
