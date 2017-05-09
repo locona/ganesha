@@ -1,34 +1,32 @@
 package twitter
 
 import (
-	"io/ioutil"
+	"fmt"
 	"net/url"
 
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/garyburd/redigo/redis"
 	_ "github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/spf13/viper"
 	mgo "gopkg.in/mgo.v2"
-	"gopkg.in/yaml.v2"
 )
 
-type Config struct {
-	ConsumerKey       string `yaml:"consumer_key"`
-	ConsumerSecret    string `yaml:"consumer_secret"`
-	AccessToken       string `yaml:"access_token"`
-	AccessTokenSecret string `yaml:"access_token_secret"`
-}
-
 func twitterApi() *anaconda.TwitterApi {
-	buf, _ := ioutil.ReadFile("twitter/config.yaml")
-	var c Config
-	if err := yaml.Unmarshal(buf, &c); err != nil {
-		panic(err)
+	viper.AddConfigPath("twitter")
+	viper.SetConfigName("config")
+	err := viper.ReadInConfig() // Find and read the config file
+	if err != nil {             // Handle errors reading the config file
+		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
+	consumer_key := viper.GetString("twitter.consumer_key")
+	consumer_secret := viper.GetString("twitter.consumer_secret")
+	access_token := viper.GetString("twitter.access_token")
+	access_token_secret := viper.GetString("twitter.access_token_secret")
 
-	anaconda.SetConsumerKey(c.ConsumerKey)
-	anaconda.SetConsumerSecret(c.ConsumerSecret)
-	api := anaconda.NewTwitterApi(c.AccessToken, c.AccessTokenSecret)
+	anaconda.SetConsumerKey(consumer_key)
+	anaconda.SetConsumerSecret(consumer_secret)
+	api := anaconda.NewTwitterApi(access_token, access_token_secret)
 	return api
 }
 
