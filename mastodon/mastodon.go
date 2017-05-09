@@ -3,12 +3,10 @@ package mastodon
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"log"
 
 	mastodon "github.com/mattn/go-mastodon"
-
-	yaml "gopkg.in/yaml.v2"
+	"github.com/spf13/viper"
 )
 
 type Config struct {
@@ -19,22 +17,23 @@ type Config struct {
 }
 
 func Mastodon() {
-	buf, _ := ioutil.ReadFile("mastodon/config.yaml")
-	client_id, client_secret := GetConfidential()
-	var config Config
-	if err := yaml.Unmarshal(buf, &config); err != nil {
-		panic(err)
+	viper.AddConfigPath("mastodon")
+	viper.SetConfigName("config")
+	err := viper.ReadInConfig() // Find and read the config file
+	if err != nil {             // Handle errors reading the config file
+		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
-	client := mastodon.NewClient(&mastodon.Config{
+	email := viper.GetString("mastodon.email")
+	password := viper.GetString("mastodon.password")
+
+	client_id, client_secret := GetConfidential()
+	c := mastodon.NewClient(&mastodon.Config{
 		Server:       "https://mstdn.jp",
 		ClientID:     client_id,
 		ClientSecret: client_secret,
 	})
 
-	fmt.Println("email: ", config.Email)
-	fmt.Println("password: ", config.Password)
-
-	err := client.Authenticate(context.Background(), config.Email, config.Password)
+	err := client.Authenticate(context.Background(), email, password)
 	if err != nil {
 		log.Fatal(err)
 	}
