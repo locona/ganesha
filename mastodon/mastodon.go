@@ -9,13 +9,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-type Config struct {
-	ClientID     string `yaml:client_id`
-	ClientSecret string `yaml:client_secret`
-	Email        string `yaml:email`
-	Password     string `yaml:password`
-}
-
 func Mastodon() {
 	viper.AddConfigPath("mastodon")
 	viper.SetConfigName("config")
